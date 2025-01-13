@@ -10,7 +10,10 @@ export default function Create() {
   const [form] = Form.useForm();
 
   const onFinish = (newItem) => {
-    setProjects((prevItems) => [...prevItems, newItem]);
+    setProjects((prevItems) => [
+      ...prevItems,
+      { ...newItem, key: prevItems[prevItems.length - 1]?.key + 1 || 1 },
+    ]);
     navigate("/projects");
   };
 
