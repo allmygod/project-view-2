@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { ProjectContext } from "../contexts/ProjectContext.jsx";
 import { formItemLayout } from "../constants/index.js";
+import Favorite from "../components/Favorite.jsx";
 
 const CustomButton = styled(Button)`
   padding: 0 2rem;
@@ -20,7 +21,16 @@ export default function Detail() {
   return (
     <Form {...formItemLayout} form={form}>
       <Form.Item label="Project ID">
-        <Typography>{selected.projectId}</Typography>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between ",
+          }}
+        >
+          <Typography.Text>{selected.projectId}</Typography.Text>
+          <Favorite projectId={pId} />
+        </div>
       </Form.Item>
       <Form.Item label="Project Name">
         <Typography>{selected.projectName}</Typography>
