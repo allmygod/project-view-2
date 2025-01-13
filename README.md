@@ -8,7 +8,6 @@ npm start
 
 Open your web browser and visit: [http://localhost:3000](http://localhost:3000)
 
-# How to Simulate Error with a Mock API
+# Mock API Description
 
-The mock API includes `debug` parameter and when it's set to `true`, it returns a failed response and otherwise the API operates as expected and returns a successful response.  
-By toggling the `debug` parameter, you can easily test error handling scenarios.
+The mock API features a `delay` parameter, which can be used to simulate longer response times. This is used to show loading states on the UI. Additionally, the API incorporates randomness to occasionally trigger errors when fetching initial data, helping to test error-handling mechanisms.
