@@ -4,11 +4,21 @@ import { Button, Table } from "antd";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { ProjectContext } from "../contexts/ProjectContext.jsx";
+import Favorite from "../components/Favorite.jsx";
 
 const CreateButton = styled(Button)`
   float: right;
   padding: 0 2rem;
   margin-bottom: 1rem;
+`;
+
+const ActionGrpup = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+const EditButton = styled(Button)`
+  padding: 0 2rem;
 `;
 
 export default function List() {
@@ -49,12 +59,15 @@ export default function List() {
       title: "",
       key: "action",
       render: (_, { projectId }) => (
-        <Button
-          type="primary"
-          onClick={() => navigate(`/projects/${projectId}/edit`)}
-        >
-          Edit
-        </Button>
+        <ActionGrpup>
+          <Favorite projectId={projectId} />
+          <EditButton
+            type="primary"
+            onClick={() => navigate(`/projects/${projectId}/edit`)}
+          >
+            Edit
+          </EditButton>
+        </ActionGrpup>
       ),
     },
   ];

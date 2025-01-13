@@ -1,22 +1,16 @@
 import React, { useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Form, Button, DatePicker, Input, Typography } from "antd";
+import { useNavigate } from "react-router-dom";
+import { Form, Button, DatePicker, Input } from "antd";
 import { ProjectContext } from "../contexts/ProjectContext.jsx";
 import { formItemLayout } from "../constants/index.js";
 
-export default function Edit() {
+export default function Create() {
   const navigate = useNavigate();
-  const { projectId: pId } = useParams();
-  const { projects, setProjects } = useContext(ProjectContext);
+  const { setProjects } = useContext(ProjectContext);
   const [form] = Form.useForm();
-  const selected = projects.find(({ projectId }) => projectId === pId);
 
-  const onFinish = (values) => {
-    setProjects((prevItems) =>
-      prevItems.map((item) =>
-        item.projectId === pId ? { ...item, ...values } : item
-      )
-    );
+  const onFinish = (newItem) => {
+    setProjects((prevItems) => [...prevItems, newItem]);
     navigate("/projects");
   };
 
@@ -28,12 +22,15 @@ export default function Edit() {
     <Form
       {...formItemLayout}
       form={form}
-      initialValues={selected}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
-      <Form.Item label="Project ID">
-        <Typography>{selected.projectId}</Typography>
+      <Form.Item
+        label="Project ID"
+        name="projectId"
+        rules={[{ required: true }]}
+      >
+        <Input />
       </Form.Item>
       <Form.Item
         label="Project Name"
@@ -69,7 +66,7 @@ export default function Edit() {
         }}
       >
         <Button type="primary" htmlType="submit">
-          Update
+          Create
         </Button>
       </Form.Item>
     </Form>

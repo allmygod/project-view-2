@@ -1,6 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import styled from "@emotion/styled";
 import { ProjectContext } from "../contexts/ProjectContext.jsx";
+import { Link } from "react-router-dom";
 
 const HeaderText = styled.h3`
   margin-left: 0.5rem;
@@ -8,20 +9,19 @@ const HeaderText = styled.h3`
 
 export default function MainLayout() {
   const { projects, favorites } = useContext(ProjectContext);
-  const favioriteProjects = useMemo(
-    () =>
-      projects
-        .filter(({ projectId }) => favorites.includes(projectId))
-        .map(({ projectName }) => projectName),
-    [projects]
+  const favoriteProjects = useMemo(
+    () => projects.filter(({ projectId }) => favorites.includes(projectId)),
+    [projects, favorites]
   );
 
   return (
     <>
       <HeaderText>Favorite Projects</HeaderText>
       <ul>
-        {favioriteProjects.map((name) => (
-          <li key={name}>{name}</li>
+        {favoriteProjects.map(({ projectId, projectName }) => (
+          <li key={projectId}>
+            <Link to={`/projects/${projectId}`}>{projectName}</Link>
+          </li>
         ))}
       </ul>
     </>
